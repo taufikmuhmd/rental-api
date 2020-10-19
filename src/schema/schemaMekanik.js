@@ -5,7 +5,7 @@ const mekanikSchema = Joi.object({
         .min(3)
         .max(50)
         .required(),
-    id: Joi.string()
+    staffLevel: Joi.string()
         .required()
 
     })

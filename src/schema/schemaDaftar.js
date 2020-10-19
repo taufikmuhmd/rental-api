@@ -11,7 +11,7 @@ const daftarSchema = Joi.object({
         .required(),
     noPolisi: Joi.string()
         .required(),
-        namaMekanik: Joi.string()
+    idMekanik: Joi.string()
         .required()
 })
 

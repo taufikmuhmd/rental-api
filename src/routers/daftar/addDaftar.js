@@ -1,8 +1,9 @@
 const express = require('express');
-const { Daftar } = require('../../../models');
-const { schemaDaftar } = require('../../schema');
-
+const mongoose = require('mongoose')
+const { Daftar, Mekanik } = require('../../../models');
+const { schemaDaftar, schemaMekanik } = require('../../schema');
 const router = express.Router();
+
 
 router.post('/daftar-bengkel', async (req,res) => {
     try {
@@ -12,20 +13,30 @@ router.post('/daftar-bengkel', async (req,res) => {
             serviceDetails,
             jenisKendaraan,
             noPolisi,
-            namaMekanik
+            idMekanik
         } = value;
 
         if (error) {
             throw new Error (error.message);
         };
+
+        let mekanik = await Mekanik.findOne({
+            _id: mongoose.Types.ObjectId(idMekanik)
+        });
+
+        if (!mekanik) {
+            throw new Error('Data tidak valid');
+        }
+
         const daftar = new Daftar({
             pemilikKendaraan,
             serviceDetails,
             jenisKendaraan,
             noPolisi,
-            namaMekanik
+            idMekanik
         });
         await daftar.save();
+
         res.send(daftar);
     } catch (e) {
         res.send({ message: e.message });
