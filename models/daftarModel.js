@@ -21,7 +21,8 @@ const daftarModel = new mongoose.Schema({
     
     idMekanik: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     }
 });
 const DaftarModel = mongoose.model('DaftarModel', daftarModel);
