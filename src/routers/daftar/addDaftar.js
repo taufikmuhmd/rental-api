@@ -11,7 +11,8 @@ router.post('/daftar-bengkel', async (req,res) => {
             pemilikKendaraan,
             serviceDetails,
             jenisKendaraan,
-            noPolisi
+            noPolisi,
+            namaMekanik
         } = value;
 
         if (error) {
@@ -21,7 +22,8 @@ router.post('/daftar-bengkel', async (req,res) => {
             pemilikKendaraan,
             serviceDetails,
             jenisKendaraan,
-            noPolisi
+            noPolisi,
+            namaMekanik
         });
         await daftar.save();
         res.send(daftar);

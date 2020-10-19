@@ -10,6 +10,8 @@ const daftarSchema = Joi.object({
     jenisKendaraan: Joi.string()
         .required(),
     noPolisi: Joi.string()
+        .required(),
+        namaMekanik: Joi.string()
         .required()
 })
 

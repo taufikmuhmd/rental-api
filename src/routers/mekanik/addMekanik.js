@@ -16,10 +16,15 @@ router.post('/mekanik-kerja', async ( req,res ) => {
         if (error) {
             throw new Error(error.message);
         };
-        let daftar = await Daftar.findOne({
+
+        let daftar = await Daftar.find({
+             _doc: (namaMekanik)
+        });
+        let daftar1 = await Daftar.findOne({
             _id: mongoose.Types.ObjectId(id)
         });
-        if (!daftar) {
+
+        if (!daftar && !daftar1) {
             throw new Error('Data tidak valid');
         }
         

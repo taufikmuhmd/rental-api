@@ -17,6 +17,10 @@ const daftarModel = new mongoose.Schema({
         type: String,
         unique: true,
         required: true
+    },
+    namaMekanik: {
+        type: String,
+        required: true
     }
 });
 const DaftarModel = mongoose.model('DaftarModel', daftarModel);
