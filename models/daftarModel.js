@@ -18,6 +18,7 @@ const daftarModel = new mongoose.Schema({
         unique: true,
         required: true
     },
+    
     idMekanik: {
         type: String,
         required: true
