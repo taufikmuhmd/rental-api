@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose')
-const { Daftar, Mekanik } = require('../../../models');
+const { Daftar, Mekanik } = require('../../models');
 const { schemaDaftar, schemaMekanik } = require('../../schema');
 const router = express.Router();
 

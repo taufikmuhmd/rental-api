@@ -1,5 +1,5 @@
 const express = require('express');
-const { Mekanik } = require('../../../models');
+const { Mekanik } = require('../../models');
 const { schemaMekanik } = require('../../schema');
 
 const router = express.Router();
