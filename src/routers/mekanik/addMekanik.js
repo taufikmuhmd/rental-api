@@ -1,11 +1,18 @@
 const express = require('express');
 const { Mekanik } = require('../../models');
 const { schemaMekanik } = require('../../schema');
+const { checkToken, verifyToken } = require('../../utils')
 
 const router = express.Router();
 
-router.post('/mekanik-kerja', async ( req,res ) => {
+router.post('/mekanik-kerja', verifyToken, async (req, res) => {
+
     try {
+        // const userData = await checkToken(req.body.token);
+        // if(userData.error){
+        //     throw new Error(userData.message)
+        // }
+        // delete req.body.token;
         const { error, value } = schemaMekanik.validate(req.body);
         const {
             namaMekanik,
@@ -16,15 +23,17 @@ router.post('/mekanik-kerja', async ( req,res ) => {
             throw new Error(error.message);
         };
 
-        
-        const mekanikKerja = new Mekanik ({
+
+        const mekanikKerja = new Mekanik({
             namaMekanik,
-            staffLevel
+            staffLevel,
+            createdBy: req.headers.decoded.data._id,
+            createdAt: new Date()
         });
         await mekanikKerja.save();
         res.send(mekanikKerja);
-    } catch(e) {
-        res.send({ message: e.message})
+    } catch (e) {
+        res.send({ message: e.message })
     }
 });
 

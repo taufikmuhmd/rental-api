@@ -1,5 +1,7 @@
-const tampilLogin = require('./login');
+const apiLogin = require('./login');
+const webLogin = require('./loginView');
 
 module.exports = [
-    tampilLogin
+    apiLogin,
+    webLogin
 ];

@@ -3,13 +3,15 @@ const mongoose = require('mongoose');
 const mekanikModel = new mongoose.Schema ({
     namaMekanik: {
         type: String,
-        unique: true,
         required: true
 
     },
     staffLevel: {
-        type: String
-    }
+        type: String,
+        required: true
+    },
+    createdBy: String,
+    createdAt: String
 })
 
 const MekanikModel = mongoose.model('MekanikModel', mekanikModel);

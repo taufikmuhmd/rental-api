@@ -5,9 +5,13 @@ const { compare, createToken } = require('../../utils');
 
 const router = express.Router();
 
-
-router.post('/login', async (req, res) => {
-
+router.get('/', (req, res) => {
+    const data = {
+        layout: false
+    }
+    res.render('login', data);
+});
+router.post('/webLogin', async (req, res) => {
     try {
         const { value, error } = schemaLogin.validate(req.body);
         const { email, password } = value;
@@ -30,10 +34,16 @@ router.post('/login', async (req, res) => {
 
         const exp = 60 * 10;
         const token = createToken(response, exp);
-        res.send({ ...response, token });
+        req.session.user = response;
+        req.session.token = token;
+    
+        console.log(req.session);
+
+        res.redirect('/dashboard')
     } catch (e) {
-        res.send({ message: e.message });
+        res.redirect('/login')
     }
 });
+
 
 module.exports = router;

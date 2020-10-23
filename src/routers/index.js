@@ -1,14 +1,16 @@
 const tampilDaftar = require('./daftar');
 const tampilMekanik = require('./mekanik');
-const tampilAdmin = require('./admin')
-const tampilLogin = require('./login')
+const tampilAdmin = require('./admin');
+const tampilLogin = require('./login');
+const dashboard = require('./dashboard');
 
 
 const routers = [
     ...tampilDaftar,
     ...tampilMekanik,
     ...tampilAdmin,
-    ...tampilLogin
+    ...tampilLogin,
+    ...dashboard
 ];
 
 const router = (arg) => {

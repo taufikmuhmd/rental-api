@@ -1,10 +1,11 @@
 const express = require('express');
 const { Admin } = require('../../models');
 const { schemaAdmin } = require('../../schema');
-
+const { encrypt } = require('../../utils');
 const router = express.Router();
 
-router.post('/add-admin', async ( req,res ) => {
+
+router.post('/add-admin', async (req, res) => {
     try {
         const { value, error } = schemaAdmin.validate(req.body);
         const {
@@ -15,15 +16,15 @@ router.post('/add-admin', async ( req,res ) => {
         if (error) {
             throw new Error(error.message);
         };
-        
-        const admin = new Admin ({
+        const passwordHash = encrypt(password);
+        const admin = new Admin({
             namaAdmin,
             email,
-            password
+            password: passwordHash
         });
         await admin.save();
-        res.send(admin);
-    } catch(e) {
+        res.send({ namaAdmin, email });
+    } catch (e) {
         res.send({ message: e.message })
     }
 });

@@ -1,32 +1,28 @@
 const express = require('express');
-const { Mekanik, Daftar } = require('../../models');
+const { Mekanik, Admin } = require('../../models');
+const { verifyToken, getAdditionalData } = require('../../utils');
+
 
 const router = express.Router();
 
 
-const getData = async (id, model) => {
-    const result = await model.findById(id).select('-password')
-    return result
-};
-
-router.get('/get-mekanik', async (req, res) => {
+router.get('/get-mekanik', verifyToken, async (req, res) => {
     try {
-        const result = await Daftar.find({});
-        const promises = await Promise.all(result.map(async el =>{
-        return {
-            pemilikKendaraan: el.pemilikKendaraan,
-            serviceDetails: el.serviceDetails,
-            jenisKendaraan: el.jenisKendaraan,
-            noPolis: el.noPolis,
-            namaMekanik: await getData(el.namaMekanik, Mekanik),
-            idMekanik: await getData(el.idMekanik, Mekanik)
-        }
+        const result = await Mekanik.find({});
+        const promises = await Promise.all(result.map(async el => {
+            return {
+                namaMekanik: el.namaMekanik,
+                staffLevel: el.staffLevel,
+                jenisKendaraan: el.jenisKendaraan,
+                createdBy: await getAdditionalData(el.createdBy, Admin),
+                createdAt: el.createdAt
+            }
         }));
 
         res.send(promises);
-    } catch(e) {
-        res.send({message: e.message});
-    } 
+    } catch (e) {
+        res.send({ message: e.message });
+    }
 });
 
 module.exports = router;

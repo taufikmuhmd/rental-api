@@ -23,7 +23,9 @@ const daftarModel = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
-    }
+    },
+    reatedBy: String,
+    createdAt: String
 });
 const DaftarModel = mongoose.model('DaftarModel', daftarModel);
 
